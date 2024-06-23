@@ -6,3 +6,5 @@
 2. Fetch data from a SQLite database
 3. Inserting data into a SQLite database
 4. Delete data from a SQLite database
+5. Updating data into a SQLite database
+6. Learn the relationship between data
