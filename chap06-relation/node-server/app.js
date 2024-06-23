@@ -9,21 +9,21 @@ const db = new sqlite3.Database('./db.sqlite')
 const getAllLines = (callback) => {
   // *** Formatting with JavaScript **
   const query = `
-select lines.id as 'line_id', points.id as 'id', points.x as 'x', points.y as 'y'
+select lines.id as 'line_id', points.id as 'point_id', points.x as 'x', points.y as 'y'
 from lines 
 inner join points on lines.id = points.line_id`;
   db.all(query, (err, rows) => {
     if (err) {
       throw err
     }
+    console.log(rows);
 
-    const lines = Array.from(
-      new Set(rows.map(row => row.line_id))
-    ).map(lineId => {
+    const lineIds = Array.from(new Set(rows.map(row => row.line_id)))
+    const lines = lineIds.map(lineId => {
       const points = rows.filter(row => row.line_id === lineId)
         .map(row => {
           return {
-            id: row.id,
+            id: row.point_id,
             x: row.x,
             y: row.y,
           }
@@ -39,10 +39,10 @@ inner join points on lines.id = points.line_id`;
   // *** Formatting with SQLite **
 //   const query = `
 // select json_object(
-// 'id', lines.id,
-// "points", json_group_array(
-//   json_object('id', points.id, 'x', points.x, 'y', points.y)
-// )
+//   'id', lines.id,
+//   "points", json_group_array(
+//     json_object('id', points.id, 'x', points.x, 'y', points.y)
+//   )
 // ) line 
 // from lines 
 // inner join points on lines.id = points.line_id 
