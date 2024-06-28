@@ -16,3 +16,5 @@ wss.on('connection', ws => {
     })
   })
 })
+
+console.log(`ws://localhost:${wss.options.port}`)
