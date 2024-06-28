@@ -4,15 +4,21 @@ import org.eclipse.jetty.websocket.api.Session;
 WebsocketClient client;
 String WS_URI = "ws://localhost:5001";
 ArrayList<Line> lines;
+HashMap<String, Line> drawingLines;
 
 void setup() {
   size(640, 480);
   client = new WebsocketClient(this, WS_URI);
   lines = new ArrayList<Line>();
+  drawingLines = new HashMap<String, Line>();
 }
 
 void draw() {
   background(0);
+
+  for (Line line : drawingLines.values()) {
+    line.draw();
+  }
 
   for (Line line : lines) {
     line.draw();
@@ -51,16 +57,12 @@ void webSocketEvent(String msg) {
   switch (type) {
   case "start":
     {
-      Line line = new Line(painterId);
-      lines.add(line);
+      drawingLines.put(painterId, new Line());
       break;
     }
   case "add":
     {
-      Line line = lines.stream()
-        .filter(l -> painterId.equals(l.painterId))
-        .findFirst()
-        .orElse(null);
+      Line line = drawingLines.get(painterId);
       JSONObject point = event.getJSONObject("point");
       float x = point.getFloat("x");
       float y = point.getFloat("y");
@@ -69,11 +71,8 @@ void webSocketEvent(String msg) {
     }
   case "end":
     {
-      Line line = lines.stream()
-        .filter(l -> painterId.equals(l.painterId))
-        .findFirst()
-        .orElse(null);
-      line.painterId = null;
+      Line line = drawingLines.remove(painterId);
+      lines.add(line);
       break;
     }
   default:

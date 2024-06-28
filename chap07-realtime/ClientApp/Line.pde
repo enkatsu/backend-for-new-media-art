@@ -1,9 +1,7 @@
 class Line {
   ArrayList<PVector> points;
-  String painterId = null;
 
-  Line(String painterId) {
-    this.painterId = painterId;
+  Line() {
     this.points = new ArrayList<PVector>();
   }
 
