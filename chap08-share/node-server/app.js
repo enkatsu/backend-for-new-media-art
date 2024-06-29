@@ -9,7 +9,7 @@ wss.on('connection', ws => {
     const event = JSON.parse(message.toString('utf-8'))
     event.uuid = ws.uuid
     console.log(event)
-    wss.clients.forEach(function each(client) {
+    wss.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(JSON.stringify(event))
       }
