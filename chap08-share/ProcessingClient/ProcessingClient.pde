@@ -1,3 +1,4 @@
+import codeanticode.syphon.*;
 import websockets.*;
 import org.eclipse.jetty.websocket.api.Session;
 
@@ -5,11 +6,13 @@ HashMap<String, PVector> lightPositions;
 WebsocketClient client;
 String WS_URI = "ws://localhost:5001";
 
+SyphonServer server;
 
 void setup() {
-  size(640, 480);
+  size(640, 480, P3D);
   client = new WebsocketClient(this, WS_URI);
   lightPositions = new HashMap<String, PVector>();
+  server = new SyphonServer(this, "Chap 08");
 }
 
 void draw() {
@@ -24,6 +27,8 @@ void draw() {
   noStroke();
   fill(0);
   rect(100, 100, 50, 50);
+  
+  server.sendScreen();
 }
 
 void webSocketEvent(String msg) {
