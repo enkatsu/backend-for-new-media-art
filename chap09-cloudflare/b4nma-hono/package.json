@@ -2,7 +2,7 @@
   "name": "b4nma-hono",
   "scripts": {
     "dev": "wrangler dev src/index.ts --config wrangler.local.toml",
-    "deploy": "wrangler deploy --minify src/index.ts  --config wrangler.prod.toml"
+    "deploy": "wrangler deploy --minify src/index.ts --config wrangler.remote.toml"
   },
   "dependencies": {
     "hono": "^4.4.11"
