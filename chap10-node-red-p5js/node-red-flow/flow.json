@@ -78,6 +78,11 @@
                 "pt": "msg",
                 "to": "_session.id",
                 "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "_session",
+                "pt": "msg"
             }
         ],
         "action": "",
