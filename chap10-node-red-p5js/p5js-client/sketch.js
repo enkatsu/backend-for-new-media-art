@@ -15,7 +15,7 @@ function setup() {
                 unfinishedLines[data.painterId] = [];
                 break;
             case 'add':
-                unfinishedLines[data.painterId].push(data);
+                unfinishedLines[data.painterId].push(data.point);
                 break;
             case 'end':
                 lines.push(unfinishedLines[data.painterId]);
@@ -31,7 +31,7 @@ function setup() {
 
 function draw() {
     background(0);
-    
+
     stroke(255);
     noFill();
     for (const painterId in unfinishedLines) {
@@ -58,8 +58,10 @@ function mousePressed() {
 function mouseDragged() {
     socket.send(JSON.stringify({
         type: 'add',
-        x: mouseX,
-        y: mouseY
+        point: {
+            x: mouseX,
+            y: mouseY,
+        }
     }));
 }
 
