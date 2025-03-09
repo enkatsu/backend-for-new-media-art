@@ -1,0 +1,103 @@
+[
+    {
+        "id": "f574d6713554a726",
+        "type": "tab",
+        "label": "フロー 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "507b25bd51781d51",
+        "type": "websocket in",
+        "z": "f574d6713554a726",
+        "name": "",
+        "server": "aaf07489a6a16da0",
+        "client": "",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "1fddb73c3ad9fb2d"
+            ]
+        ]
+    },
+    {
+        "id": "7240bf8ffd121152",
+        "type": "websocket out",
+        "z": "f574d6713554a726",
+        "name": "",
+        "server": "aaf07489a6a16da0",
+        "client": "",
+        "x": 640,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "4a80310d912c2a04",
+        "type": "debug",
+        "z": "f574d6713554a726",
+        "name": "debug 7",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "1fddb73c3ad9fb2d",
+        "type": "json",
+        "z": "f574d6713554a726",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 230,
+        "y": 140,
+        "wires": [
+            [
+                "7d1991e1241fad10"
+            ]
+        ]
+    },
+    {
+        "id": "7d1991e1241fad10",
+        "type": "change",
+        "z": "f574d6713554a726",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.painterId",
+                "pt": "msg",
+                "to": "_session.id",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 410,
+        "y": 140,
+        "wires": [
+            [
+                "4a80310d912c2a04",
+                "7240bf8ffd121152"
+            ]
+        ]
+    },
+    {
+        "id": "aaf07489a6a16da0",
+        "type": "websocket-listener",
+        "path": "/ws/paint",
+        "wholemsg": "false"
+    }
+]
